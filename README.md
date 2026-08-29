@@ -6,7 +6,16 @@ This system accepts email send requests via API or dashboard CSV upload, schedul
 
 ---
 
-## 🚀 Quick Start Guide
+## 🌐 GitHub Repository & Deployment Links
+
+- **GitHub Repository**: `https://github.com/HarshVarma24/Assignment_outboxlabs.git`
+- **Dashboard UI**: `http://localhost:3000`
+- **Backend API**: `http://localhost:5000`
+- **BullMQ Live Board**: `http://localhost:5000/admin/queues`
+
+---
+
+## 🚀 Quick Start Guide (Local Development)
 
 ### Prerequisites
 - **Node.js**: `v18+` or `v20+` or `v24+`
@@ -20,7 +29,7 @@ This system accepts email send requests via API or dashboard CSV upload, schedul
 From the project root:
 
 ```bash
-docker compose up -d
+docker compose up -d postgres redis elasticsearch
 ```
 
 This starts:
@@ -72,6 +81,33 @@ npm run dev
 ```
 
 The frontend dashboard runs at `http://localhost:3000`.
+
+---
+
+## 📦 Full Production Containerized Deployment
+
+You can deploy the entire stack (Postgres, Redis, Elasticsearch, Backend Engine, Frontend Next.js) using **Docker Compose**:
+
+```bash
+# 1-Click Containerized Build & Start
+docker compose up --build -d
+```
+
+### Deploying to Cloud Providers
+
+#### Option A: Vercel + Render / Railway
+1. **Frontend (Vercel)**:
+   - Connect `https://github.com/HarshVarma24/Assignment_outboxlabs.git` to Vercel.
+   - Set Root Directory to `frontend`.
+   - Set Environment Variable: `NEXT_PUBLIC_API_URL=https://your-backend-render-url.com/api`.
+2. **Backend & Database (Render / Railway)**:
+   - Deploy PostgreSQL, Redis, and Elasticsearch services on Railway / Render / Managed Cloud.
+   - Connect `backend` folder to Render Web Service / Railway.
+   - Set environment variables (`DATABASE_URL`, `REDIS_HOST`, `ELASTICSEARCH_NODE`).
+
+#### Option B: VPS (AWS / DigitalOcean / Hetzner)
+- Clone repo: `git clone https://github.com/HarshVarma24/Assignment_outboxlabs.git`
+- Run: `docker compose up --build -d`
 
 ---
 
@@ -174,7 +210,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api
 | **Slack Notification** | ✅ Live Slack webhook API alert | `backend/src/services/slack.ts` |
 | **Searchable Emails** | ✅ Elasticsearch + DB fallback | `backend/src/services/elasticsearch.ts` |
 | **Fake SMTP** | ✅ Ethereal Email preview URLs | `backend/src/services/mailer.ts` |
-| **Live BullMQ Board** | ✅ `@bull-board/express` on `/admin/queues` | `backend/src/index.ts` |
+| **Live Bull Board** | ✅ `@bull-board/express` on `/admin/queues` | `backend/src/index.ts` |
 | **Google Login & UI** | ✅ Next.js 14 + Tailwind CSS | `frontend/src/app/` |
 | **CSV Lead Upload** | ✅ PapaParse parser with count | `frontend/src/components/ComposeModal.tsx` |
 
@@ -188,7 +224,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api
 
 ---
 
-## 📬 Contact & Repo Access
+## 📬 Repository Access
 
-- **GitHub Repository**: Monorepo
-- **Granted Access**: `Mitrajit` and `Yadav036`
+- **GitHub Repository**: `https://github.com/HarshVarma24/Assignment_outboxlabs.git`
+- **Access Granted To**: `Mitrajit` and `Yadav036`
