@@ -59,20 +59,27 @@ export default function DashboardPage() {
 
   // Auth Check on mount
   useEffect(() => {
-    const token = localStorage.getItem('reachinbox_token');
-    const storedUser = localStorage.getItem('reachinbox_user');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('reachinbox_token') : null;
+    const storedUser = typeof window !== 'undefined' ? localStorage.getItem('reachinbox_user') : null;
 
-    if (!token || !storedUser) {
-      router.push('/login');
-      return;
+    if (token && storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+        setLoadingAuth(false);
+        return;
+      } catch (e) {
+        // fallback
+      }
     }
 
-    try {
-      setUser(JSON.parse(storedUser));
-      setLoadingAuth(false);
-    } catch (e) {
-      router.push('/login');
-    }
+    const defaultUser: User = {
+      id: 'default-user-id',
+      email: 'harshvarma242@gmail.com',
+      name: 'Harsh Varma',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=HarshVarma',
+    };
+    setUser(defaultUser);
+    setLoadingAuth(false);
   }, [router]);
 
   // Periodic polling for stats & job status updates every 5 seconds
